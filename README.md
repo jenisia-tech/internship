@@ -1,0 +1,35 @@
+# Hospital Management System
+
+## Title
+Hospital Management System
+
+## Pitch
+Hospital Management System lets hospitals manage patients, doctors, appointments, and medical records so that healthcare operations are organized and efficient.
+
+## User
+Hospital administrators, doctors, and reception staff who need to manage hospital data and daily operations.
+
+## Data
+Patient:
+- Patient ID
+- Name
+- Age
+- Gender
+- Contact Number
+- Medical History
+
+Doctor:
+- Doctor ID
+- Name
+- Specialization
+- Availability
+
+Appointment:
+- Appointment ID
+- Patient ID
+- Doctor ID
+- Date
+- Status
+
+## AI Feature
+Model takes patient symptoms and medical history, returns possible department recommendations and appointment suggestions.
