@@ -33,3 +33,18 @@ Appointment:
 
 ## AI Feature
 Model takes patient symptoms and medical history, returns possible department recommendations and appointment suggestions.
+## Authentication
+
+The system will include role-based authentication for hospital staff.
+
+Roles:
+- Admin
+- Doctor
+- Receptionist
+
+## Deployment
+
+The project is deployed using Vercel.
+
+Deployment URL:
+https://internship-umber-eight.vercel.app
