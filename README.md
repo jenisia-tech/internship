@@ -48,3 +48,11 @@ The project is deployed using Vercel.
 
 Deployment URL:
 https://internship-umber-eight.vercel.app
+## Day 3: AI / LLM Integration
+
+This project uses the Groq LLM SDK for the AI symptom assistant.
+
+Evidence of LLM SDK import:
+
+```ts
+import Groq from "groq-sdk";
