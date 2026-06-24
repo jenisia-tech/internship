@@ -1,8 +1,14 @@
 import Groq from "groq-sdk";
 
 export async function generateSymptomAdvice(symptoms: string) {
+  const apiKey = process.env.GROQ_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("GROQ_API_KEY is missing");
+  }
+
   const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY,
+    apiKey: apiKey,
   });
 
   const response = await groq.chat.completions.create({
