@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { dbConnect } from "@/lib/mongodb";
+import { Patient } from "@/models/Patient";
 
 export async function POST(req: Request) {
   try {
@@ -9,7 +11,22 @@ export async function POST(req: Request) {
       throw new Error("Missing GROQ_API_KEY environment variable");
     }
 
-    const { symptoms } = await req.json();
+    await dbConnect();
+
+    const body = await req.json();
+    let symptoms = body.symptoms;
+
+    if (!symptoms) {
+      const latestPatient = await Patient.findOne().sort({ createdAt: -1 });
+      symptoms = latestPatient?.symptoms || "";
+    }
+
+    if (!symptoms) {
+      return NextResponse.json(
+        { error: "No symptoms provided or found in MongoDB." },
+        { status: 400 }
+      );
+    }
 
     const client = new OpenAI({
       apiKey: apiKey,
@@ -22,11 +39,11 @@ export async function POST(req: Request) {
         {
           role: "system",
           content:
-            "You are a hospital assistant. Give concise, safe, non-diagnostic guidance.",
+            "You are a hospital assistant. Based on the patient's symptoms, provide short, safe health advice. Do not diagnose diseases. Keep the response under 100 words. Recommend consulting a doctor if symptoms are severe.",
         },
         {
           role: "user",
-          content: `Patient symptoms: ${symptoms}`,
+          content: `Patient symptoms from hospital records: ${symptoms}`,
         },
       ],
     });
