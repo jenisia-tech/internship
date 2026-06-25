@@ -54,11 +54,12 @@ export default function Home() {
       />
 
       <button
-        onClick={askAI}
-        className="mt-4 px-4 py-2 border rounded"
-      >
-        Ask AI
-      </button>
+  onClick={askAI}
+  disabled={loading || !symptoms.trim()}
+  className="mt-4 px-4 py-2 border rounded disabled:opacity-50"
+>
+  {loading ? "Thinking..." : "Ask AI"}
+</button>
 
       {loading && (
         <p className="mt-4">Generating response...</p>
