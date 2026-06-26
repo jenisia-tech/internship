@@ -1,58 +1,148 @@
-# Hospital Management System
+# 🏥 Hospital Management System
 
-## Title
-Hospital Management System
+A modern Hospital Management System built using **Next.js**, **MongoDB**, and **Groq AI**. The application helps manage hospital records while providing an AI-powered symptom assistant that offers safe health guidance based on patient symptoms.
 
-## Pitch
-Hospital Management System lets hospitals manage patients, doctors, appointments, and medical records so that healthcare operations are organized and efficient.
+---
 
-## User
-Hospital administrators, doctors, and reception staff who need to manage hospital data and daily operations.
+## ✨ Features
 
-## Data
-Patient:
-- Patient ID
-- Name
-- Age
-- Gender
-- Contact Number
-- Medical History
+* 🧑‍⚕️ Patient Management
 
-Doctor:
-- Doctor ID
-- Name
-- Specialization
-- Availability
+  * Create and manage patient records
+  * Store patient information
+  * View patient details
 
-Appointment:
-- Appointment ID
-- Patient ID
-- Doctor ID
-- Date
-- Status
+* 🤖 AI Symptom Assistant
 
-## AI Feature
-Model takes patient symptoms and medical history, returns possible department recommendations and appointment suggestions.
-## Authentication
+  * Enter patient symptoms
+  * AI generates short and safe health guidance
+  * Uses the Groq API (OpenAI-compatible)
 
-The system will include role-based authentication for hospital staff.
+* 📋 Modern Dashboard
 
-Roles:
-- Admin
-- Doctor
-- Receptionist
+  * Professional hospital-themed interface
+  * Responsive design
+  * Statistics cards
+  * Quick access modules
 
-## Deployment
+* 🔒 Secure Configuration
 
-The project is deployed using Vercel.
+  * API keys stored using environment variables
+  * MongoDB connection stored securely
+  * Secrets are excluded from Git using `.gitignore`
 
-Deployment URL:
+---
+
+## 🛠️ Technologies Used
+
+* Next.js 16
+* React
+* TypeScript
+* Tailwind CSS
+* MongoDB Atlas
+* Mongoose
+* Groq AI API (OpenAI SDK)
+* Vercel
+
+---
+
+## 🚀 Live Demo
+
+**Website:**
+
 https://internship-umber-eight.vercel.app
-## Day 3: AI / LLM Integration
 
-This project uses the Groq LLM SDK for the AI symptom assistant.
+---
 
-Evidence of LLM SDK import:
+## 📂 Project Structure
 
-```ts
-import Groq from "groq-sdk";
+```text
+app/
+├── api/
+│   ├── ai/
+│   └── patients/
+├── patients/
+├── page.tsx
+├── layout.tsx
+models/
+lib/
+public/
+```
+
+---
+
+## 🤖 AI Feature
+
+The AI Symptom Assistant allows users to enter patient symptoms and receive AI-generated health guidance.
+
+The application:
+
+* Sends the user's symptoms to the Groq API.
+* Uses a system prompt to ensure responses are short, safe, and non-diagnostic.
+* Returns the generated advice to the frontend.
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env.local` file in the project root and add:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+MONGODB_URI=your_mongodb_connection_string
+```
+
+---
+
+## 💻 Running Locally
+
+Clone the repository:
+
+```bash
+git clone https://github.com/jenisia-tech/internship.git
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Build the project:
+
+```bash
+npm run build
+```
+
+---
+
+## 📸 Screenshots
+
+Add screenshots of:
+
+* Dashboard
+* Patients Page
+* AI Symptom Assistant
+* AI Response
+
+---
+
+## 👩‍💻 Author
+
+**Jenisia Mary**
+
+GitHub:
+
+https://github.com/jenisia-tech
+
+---
+
+## 📄 License
+
+This project was developed for internship learning purposes.
