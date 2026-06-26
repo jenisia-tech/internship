@@ -1,35 +1,29 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
-import { dbConnect } from "@/lib/mongodb";
-import { Patient } from "@/models/Patient";
 
 export async function POST(req: Request) {
   try {
     const apiKey = process.env.GROQ_API_KEY;
 
     if (!apiKey) {
-      throw new Error("Missing GROQ_API_KEY environment variable");
+      return NextResponse.json(
+        { error: "Missing GROQ_API_KEY environment variable." },
+        { status: 500 }
+      );
     }
-
-    await dbConnect();
 
     const body = await req.json();
-    let symptoms = body.symptoms;
-
-    if (!symptoms) {
-      const latestPatient = await Patient.findOne().sort({ createdAt: -1 });
-      symptoms = latestPatient?.symptoms || "";
-    }
+    const symptoms = body.symptoms?.trim();
 
     if (!symptoms) {
       return NextResponse.json(
-        { error: "No symptoms provided or found in MongoDB." },
+        { error: "Please enter patient symptoms first." },
         { status: 400 }
       );
     }
 
     const client = new OpenAI({
-      apiKey: apiKey,
+      apiKey,
       baseURL: "https://api.groq.com/openai/v1",
     });
 
@@ -43,20 +37,21 @@ export async function POST(req: Request) {
         },
         {
           role: "user",
-          content: `Patient symptoms from hospital records: ${symptoms}`,
+          content: `Patient symptoms: ${symptoms}`,
         },
       ],
     });
 
     const answer =
-      completion.choices[0]?.message?.content || "No response generated.";
+      completion.choices[0]?.message?.content ||
+      "No response generated. Please try again.";
 
     return NextResponse.json({ answer });
   } catch (error) {
     console.error("LLM call failed:", error);
 
     return NextResponse.json(
-      { error: "Failed to generate AI response" },
+      { error: "Couldn't generate advice right now. Please try again." },
       { status: 500 }
     );
   }
